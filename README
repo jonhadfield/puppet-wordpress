@@ -1,12 +1,19 @@
-wordpress
+This will set up and maintain an installation of wordpress on Debian and Redhat style distributions.
 
-This is the wordpress module.
+Installation includes software and configuration for mysql, apache httpd and php module.
+
+Wordpress version: 3.2.1
+
+Additional software
+  Theme:    Graphene 1.4
+  Plug-in:  Wordpress importer 0.5
 
 Usage:
-        class {
-                wordpress:
-                        wordpress_db_name => "wordpress",
-                        wordpress_db_user => "wordpress",
-                        wordpress_db_password => "password"
-        }
+
+  class {
+     wordpress:
+       wordpress_db_name =>      "<name of database>",
+       wordpress_db_user =>      "<database user>",
+       wordpress_db_password =>  "<database password>"
+  }
 
