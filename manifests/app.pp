@@ -1,6 +1,6 @@
 class wordpress::app {
 
-	$wordpress_archive = "wordpress-3.1.3.zip"
+	$wordpress_archive = "wordpress-3.2.1.zip"
 
 	$apache = $operatingsystem ? {
 		Ubuntu => apache2,
