@@ -41,7 +41,7 @@ class wordpress::app {
 		"wordpress_setup_files_dir":
 			name    =>  "/opt/wordpress/setup_files",
 			ensure  =>  directory,
-			before	=>  File["wordpress_php_configuration","wordpress_themes","wordpress_plugins","wordpress_installer"];
+			before	=>  File["wordpress_php_configuration","wordpress_themes","wordpress_plugins","wordpress_installer","wordpress_htaccess_configuration"];
 		"wordpress_installer":
 			name    =>  "/opt/wordpress/setup_files/${wordpress_archive}",
 			ensure  =>  file,
@@ -51,6 +51,11 @@ class wordpress::app {
 			name       =>  "/opt/wordpress/wp-config.php",
 			ensure     =>  file,
 			content	   =>  template("wordpress/wp-config.erb"),
+			subscribe  =>  Exec["wordpress_extract_installer"];
+		"wordpress_htaccess_configuration":
+			name       =>  "/opt/wordpress/.htaccess",
+			ensure     =>  file,
+			source     =>  "puppet:///modules/wordpress/.htaccess",
 			subscribe  =>  Exec["wordpress_extract_installer"];
 		"wordpress_themes":
 			name    =>    "/opt/wordpress/setup_files/themes",
