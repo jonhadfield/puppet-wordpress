@@ -5,8 +5,11 @@ Installation includes software and configuration for mysql, apache httpd and php
 Wordpress version: 3.2.1
 
 Additional software
-  Theme:    Graphene 1.4
-  Plug-in:  Wordpress importer 0.5
+  Themes:    
+	- Graphene 1.4.1
+	- Suffusion 3.8.2
+  Plugins:  
+	- Wordpress importer 0.5
 
 Usage:
 
