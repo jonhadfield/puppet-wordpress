@@ -5,18 +5,21 @@ class wordpress::app {
 	$apache = $operatingsystem ? {
 		Ubuntu => apache2,
 		CentOS => httpd,
+		Debian => apache2,
 		default => httpd
 	}
 
 	$phpmysql = $operatingsystem ? {
 		Ubuntu => php5-mysql,
 		CentOS => php-mysql,
+		Debian => php5-mysql,
 		default => php-mysql
 	}
 
 	$php = $operatingsystem ? {
 		Ubuntu => php5,
 		CentOS => php,
+		Debian => php5,
 		default => php
 	}
 
