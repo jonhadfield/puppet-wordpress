@@ -9,12 +9,14 @@ class wordpress::db {
 	$mysqlclient = $operatingsystem ? {
 		Ubuntu => mysql-client,
 		CentOS => mysql,
+		Debian => mysql-client,
 		default => mysql
 	}
 
 	$mysqlservice = $operatingsystem ? {
 		Ubuntu => mysql,
 		CentOS => mysqld,
+		Debian => mysql,
 		default => mysqld
 	}
 
