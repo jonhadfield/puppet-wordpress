@@ -1,22 +1,22 @@
 class wordpress::app {
 
-	$wordpress_archive = "wordpress-3.2.1.zip"
+	$wordpress_archive = "wordpress-3.3.1.zip"
 
-	$apache = $operatingsystem ? {
+	$apache = $::operatingsystem ? {
 		Ubuntu => apache2,
 		CentOS => httpd,
 		Debian => apache2,
 		default => httpd
 	}
 
-	$phpmysql = $operatingsystem ? {
+	$phpmysql = $::operatingsystem ? {
 		Ubuntu => php5-mysql,
 		CentOS => php-mysql,
 		Debian => php5-mysql,
 		default => php-mysql
 	}
 
-	$php = $operatingsystem ? {
+	$php = $::operatingsystem ? {
 		Ubuntu => php5,
 		CentOS => php,
 		Debian => php5,
@@ -38,30 +38,30 @@ class wordpress::app {
 	
 	file { 
 		"wordpress_application_dir":
-			name    =>  "/opt/wordpress",
+			path    =>  "/opt/wordpress",
 			ensure  =>  directory,
 			before	=>  File["wordpress_setup_files_dir"];
 		"wordpress_setup_files_dir":
-			name    =>  "/opt/wordpress/setup_files",
+			path    =>  "/opt/wordpress/setup_files",
 			ensure  =>  directory,
 			before	=>  File["wordpress_php_configuration","wordpress_themes","wordpress_plugins","wordpress_installer","wordpress_htaccess_configuration"];
 		"wordpress_installer":
-			name    =>  "/opt/wordpress/setup_files/${wordpress_archive}",
+			path    =>  "/opt/wordpress/setup_files/${wordpress_archive}",
 			ensure  =>  file,
 			notify  =>  Exec["wordpress_extract_installer"],
 			source  =>  "puppet:///modules/wordpress/${wordpress_archive}";
 		"wordpress_php_configuration":
-			name       =>  "/opt/wordpress/wp-config.php",
+			path       =>  "/opt/wordpress/wp-config.php",
 			ensure     =>  file,
 			content	   =>  template("wordpress/wp-config.erb"),
 			subscribe  =>  Exec["wordpress_extract_installer"];
 		"wordpress_htaccess_configuration":
-			name       =>  "/opt/wordpress/.htaccess",
+			path       =>  "/opt/wordpress/.htaccess",
 			ensure     =>  file,
 			source     =>  "puppet:///modules/wordpress/.htaccess",
 			subscribe  =>  Exec["wordpress_extract_installer"];
 		"wordpress_themes":
-			name    =>    "/opt/wordpress/setup_files/themes",
+			path    =>    "/opt/wordpress/setup_files/themes",
 			ensure  =>    directory,
 			source	=>    "puppet:///modules/wordpress/themes/",
 			recurse =>    true,		
@@ -70,7 +70,7 @@ class wordpress::app {
 			notify =>     Exec["wordpress_extract_themes"],
 			subscribe =>  Exec["wordpress_extract_installer"];
 		"wordpress_plugins":
-			name    =>    "/opt/wordpress/setup_files/plugins",
+			path    =>    "/opt/wordpress/setup_files/plugins",
 			ensure  =>    directory,
 			source	=>    "puppet:///modules/wordpress/plugins/",
 			recurse =>    true,		
@@ -80,9 +80,10 @@ class wordpress::app {
 			subscribe =>  Exec["wordpress_extract_installer"];
 		# TODO: Messy - need to properly set apache2 config and enable in proper way		
 		"wordpress_vhost":
-			name =>    $apache ? {
+			path =>    $apache ? {
 				httpd =>    "/etc/httpd/conf.d/wordpress.conf",
 				apache2 =>  "/etc/apache2/sites-enabled/000-default",
+				default =>  "/etc/httpd/conf.d/wordpress.conf",
 			},
 			ensure =>   file,
 			source =>   "puppet:///modules/wordpress/wordpress.conf",

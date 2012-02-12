@@ -1,19 +1,19 @@
 class wordpress::db {
 	
-	$mysqlserver = $operatingsystem ? {
+	$mysqlserver = $::operatingsystem ? {
 		Ubuntu => mysql-server,
 		CentOS => mysql-server,
 		default => mysql-server
 	}
 
-	$mysqlclient = $operatingsystem ? {
+	$mysqlclient = $::operatingsystem ? {
 		Ubuntu => mysql-client,
 		CentOS => mysql,
 		Debian => mysql-client,
 		default => mysql
 	}
 
-	$mysqlservice = $operatingsystem ? {
+	$mysqlservice = $::operatingsystem ? {
 		Ubuntu => mysql,
 		CentOS => mysqld,
 		Debian => mysql,
@@ -31,7 +31,7 @@ class wordpress::db {
 	}
 
 	file { "wordpress_sql_script":
-			name    =>  "/opt/wordpress/setup_files/create_wordpress_db.sql",
+			path    =>  "/opt/wordpress/setup_files/create_wordpress_db.sql",
 			ensure  =>  file,
 			content	=> template("wordpress/create_wordpress_db.erb");
 	}
