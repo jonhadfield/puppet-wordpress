@@ -1,6 +1,6 @@
 name    'puppet-wordpress'
-version '0.0.2'
-source 'git://github.com/jonhadfield/puppet-wordpress.git'
+version '0.0.3'
+source 'https://github.com/jonhadfield/puppet-wordpress'
 author 'Jon Hadfield'
 license 'Apache2'
 summary 'Puppet module to set up an instance of wordpress'
