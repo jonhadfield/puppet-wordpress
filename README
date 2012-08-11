@@ -6,8 +6,8 @@ Wordpress version: 3.4.1
 
 Additional software
   Themes:    
-	- Graphene 1.7.3
-	- Suffusion 4.2.5
+	- Graphene 1.8
+	- Suffusion 4.2.8
   Plugins:  
 	- Wordpress importer 0.6
 
