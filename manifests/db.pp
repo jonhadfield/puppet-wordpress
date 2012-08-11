@@ -1,56 +1,61 @@
 class wordpress::db {
-	
-	$mysqlserver = $::operatingsystem ? {
-		Ubuntu => mysql-server,
-		CentOS => mysql-server,
-		default => mysql-server
-	}
 
-	$mysqlclient = $::operatingsystem ? {
-		Ubuntu => mysql-client,
-		CentOS => mysql,
-		Debian => mysql-client,
-		default => mysql
-	}
+  $mysqlserver = $::operatingsystem ? {
+    Ubuntu   => mysql-server,
+    CentOS   => mysql-server,
+    default  => mysql-server
+  }
 
-	$mysqlservice = $::operatingsystem ? {
-		Ubuntu => mysql,
-		CentOS => mysqld,
-		Debian => mysql,
-		default => mysqld
-	}
+  $mysqlclient = $::operatingsystem ? {
+    Ubuntu   => mysql-client,
+    CentOS   => mysql,
+    Debian   => mysql-client,
+    default  => mysql
+  }
 
-	package { ["${mysqlclient}", "${mysqlserver}"]: ensure => latest }
+  $mysqlservice = $::operatingsystem ? {
+    Ubuntu   => mysql,
+    CentOS   => mysqld,
+    Debian   => mysql,
+    default  => mysqld
+  }
 
-	service { "${mysqlservice}":
-		ensure     => running,
-		enable     => true,
-		hasrestart => true,
-		hasstatus  => true,
-		require    => Package["${mysqlserver}", "${mysqlclient}"],
-	}
+  package { [ $mysqlclient, $mysqlserver ]: ensure => latest }
 
-	file { "wordpress_sql_script":
-			path    =>  "/opt/wordpress/setup_files/create_wordpress_db.sql",
-			ensure  =>  file,
-			content	=> template("wordpress/create_wordpress_db.erb");
-	}
+  service { $mysqlservice:
+    ensure      => running,
+    enable      => true,
+    hasrestart  => true,
+    hasstatus   => true,
+    require     => Package[ $mysqlserver, $mysqlclient ],
+  }
 
-	exec { 
-		"create_schema":
-			path    => "/usr/bin:/usr/sbin:/bin",
-			command => "mysql -uroot < /opt/wordpress/setup_files/create_wordpress_db.sql",
-			unless  => "mysql -uroot -e \"use ${wordpress::db_name}\"",
-			notify  => Exec["grant_privileges"],
-			require => [ 
-				Service["${mysqlservice}"], 
-				File["wordpress_sql_script"],
-			];
+  file { 'wordpress_sql_script':
+    ensure   => file,
+    path     => '/opt/wordpress/setup_files/create_wordpress_db.sql',
+    content  => template('wordpress/create_wordpress_db.erb');
+  }
 
-		"grant_privileges":
-			path    => "/usr/bin:/usr/sbin:/bin",
-			command => "mysql -uroot -e \"grant all privileges on ${wordpress::db_name}.* to '${wordpress::db_user}'@'localhost' identified by '${wordpress::db_password}'\"",
-			unless  => "mysql -u${wordpress::db_user} -p${wordpress::db_password} -D${wordpress::db_name} -hlocalhost",
-			refreshonly => true;
-  	}   
+  exec {
+    'create_schema':
+      path     => '/usr/bin:/usr/sbin:/bin',
+      command  => 'mysql -uroot <\
+                  /opt/wordpress/setup_files/create_wordpress_db.sql',
+      unless   => "mysql -uroot -e \"use ${wordpress::db_name}\"",
+      notify   => Exec['grant_privileges'],
+      require  => [
+        Service[ $mysqlservice ],
+        File['wordpress_sql_script'],
+      ];
+    'grant_privileges':
+      path         => '/usr/bin:/usr/sbin:/bin',
+      command      => "mysql -uroot -e \"grant all privileges on\
+                      ${wordpress::db_name}.* to\
+                      '${wordpress::db_user}'@'localhost'\
+                      identified by '${wordpress::db_password}'\"",
+      unless       => "mysql -u${wordpress::db_user}\
+                      -p${wordpress::db_password}\
+                      -D${wordpress::db_name} -hlocalhost",
+      refreshonly  => true;
+  }
 }
