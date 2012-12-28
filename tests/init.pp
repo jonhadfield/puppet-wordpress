@@ -1,5 +1,7 @@
-class {'wordpress':
-                wordpress_db_name =>      "mydbname",
-                wordpress_db_user =>      "mydbuser",
-                wordpress_db_password =>  "mydbpassword"
+class { 'wordpress':
+  install_dir => '/var/www/wordpress',
+  db_name     => 'wordpress',
+  db_host     => 'localhost',
+  db_user     => 'wordpress',
+  db_password => 'insecure password',
 }

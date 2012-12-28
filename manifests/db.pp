@@ -1,61 +1,51 @@
-class wordpress::db {
+class wordpress::db (
+  $create_db,
+  $create_db_user,
+  $db_name,
+  $db_host,
+  $db_user,
+  $db_password,
+) {
+  validate_bool($create_db,$create_db_user)
+  validate_string($db_name,$db_host,$db_user,$db_password)
 
-  $mysqlserver = $::operatingsystem ? {
-    Ubuntu   => mysql-server,
-    CentOS   => mysql-server,
-    default  => mysql-server
+  ## PHP MySQL support
+  include apache::mod::php
+
+  case $::osfamily {
+    'Debian': {
+      $php_mysql = 'php5-mysql'
+    }
+    'RedHat': {
+      $php_mysql = $::lsbmajdistrelease ? {
+        '5' => 'php53-mysql',
+        '6' => 'php-mysql',
+      }
+    }
+  }
+  if ! defined(Package[$php_mysql]) {
+    package { $php_mysql:
+      ensure  => present,
+      require => Class['apache::mod::php'],
+    }
   }
 
-  $mysqlclient = $::operatingsystem ? {
-    Ubuntu   => mysql-client,
-    CentOS   => mysql,
-    Debian   => mysql-client,
-    default  => mysql
+  ## Set up DB using puppetlabs-mysql defined type
+  if $create_db {
+    database { $db_name:
+      charset => 'utf8',
+      require => Class['wordpress::app'],
+    }
+  }
+  if $create_db_user {
+    database_user { "${db_user}@${db_host}":
+      password_hash => mysql_password($db_password),
+      require       => Class['wordpress::app'],
+    }
+    database_grant { "${db_user}@${db_host}/${db_name}":
+      privileges => ['all'],
+      require    => Class['wordpress::app'],
+    }
   }
 
-  $mysqlservice = $::operatingsystem ? {
-    Ubuntu   => mysql,
-    CentOS   => mysqld,
-    Debian   => mysql,
-    default  => mysqld
-  }
-
-  package { [ $mysqlclient, $mysqlserver ]: ensure => latest }
-
-  service { $mysqlservice:
-    ensure      => running,
-    enable      => true,
-    hasrestart  => true,
-    hasstatus   => true,
-    require     => Package[ $mysqlserver, $mysqlclient ],
-  }
-
-  file { 'wordpress_sql_script':
-    ensure   => file,
-    path     => '/opt/wordpress/setup_files/create_wordpress_db.sql',
-    content  => template('wordpress/create_wordpress_db.erb');
-  }
-
-  exec {
-    'create_schema':
-      path     => '/usr/bin:/usr/sbin:/bin',
-      command  => 'mysql -uroot <\
-                  /opt/wordpress/setup_files/create_wordpress_db.sql',
-      unless   => "mysql -uroot -e \"use ${wordpress::db_name}\"",
-      notify   => Exec['grant_privileges'],
-      require  => [
-        Service[ $mysqlservice ],
-        File['wordpress_sql_script'],
-      ];
-    'grant_privileges':
-      path         => '/usr/bin:/usr/sbin:/bin',
-      command      => "mysql -uroot -e \"grant all privileges on\
-                      ${wordpress::db_name}.* to\
-                      '${wordpress::db_user}'@'localhost'\
-                      identified by '${wordpress::db_password}'\"",
-      unless       => "mysql -u${wordpress::db_user}\
-                      -p${wordpress::db_password}\
-                      -D${wordpress::db_name} -hlocalhost",
-      refreshonly  => true;
-  }
 }
