@@ -1,5 +1,6 @@
 class wordpress::app (
   $install_dir,
+  $install_url,
   $version,
   $db_name,
   $db_host,
@@ -8,6 +9,8 @@ class wordpress::app (
   $wp_owner,
   $wp_group,
 ) {
+  validate_string($install_dir,$install_url,$version,$db_name,$db_host,$db_user,$db_password,$wp_owner,$wp_group)
+
   ## Resource defaults
   File {
     owner  => $wp_owner,
@@ -30,7 +33,7 @@ class wordpress::app (
 
   ## Download and extract
   exec { 'Download wordpress':
-    command => "wget http://wordpress.org/wordpress-${version}.tar.gz",
+    command => "wget ${install_url}/wordpress-${version}.tar.gz",
     creates => "${install_dir}/wordpress-${version}.tar.gz",
     require => File[$install_dir],
   }

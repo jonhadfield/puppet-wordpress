@@ -17,6 +17,9 @@ Installation includes:
 * `install_dir`<br />
   Specifies the directory into which wordpress should be installed. Default: `/opt/wordpress`
 
+* `install_url`<br />
+  Specifies the url from which the wordpress tarball should be downloaded.  Default: `http://wordpress.org`
+
 * `version`<br />
   Specifies the version of wordpress to install. Default: `3.5`
 
@@ -99,3 +102,12 @@ class { 'wordpress':
   install_dir => '/var/www/wordpress',
 }
 ```
+
+Download `wordpress-${version}.tar.gz` from an internal server:
+
+```puppet
+class { 'wordpress':
+  install_url => 'http://internal.example.com/software',
+}
+```
+
