@@ -60,6 +60,7 @@ class wordpress (
 ) {
   class { 'wordpress::app':
     install_dir => $install_dir,
+    install_url => $install_url,
     version     => $version,
     db_name     => $db_name,
     db_host     => $db_host,
