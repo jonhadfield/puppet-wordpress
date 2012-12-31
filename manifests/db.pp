@@ -10,8 +10,6 @@ class wordpress::db (
   validate_string($db_name,$db_host,$db_user,$db_password)
 
   ## PHP MySQL support
-  include apache::mod::php
-
   case $::osfamily {
     'Debian': {
       $php_mysql = 'php5-mysql'
