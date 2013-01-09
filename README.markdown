@@ -12,6 +12,12 @@ Installation includes:
 - Generate secure keys and salts for `wp-config.php`.
 - Optional creation of MySQL database/user/permissions.
 
+Requires:
+
+- Configuration of php-enabled webserver
+- Configuration MySQL server
+- PHP 5.3 or greater
+
 ## Parameters
 
 * `install_dir`<br />

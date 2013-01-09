@@ -9,25 +9,6 @@ class wordpress::db (
   validate_bool($create_db,$create_db_user)
   validate_string($db_name,$db_host,$db_user,$db_password)
 
-  ## PHP MySQL support
-  case $::osfamily {
-    'Debian': {
-      $php_mysql = 'php5-mysql'
-    }
-    'RedHat': {
-      $php_mysql = $::lsbmajdistrelease ? {
-        '5' => 'php53-mysql',
-        '6' => 'php-mysql',
-      }
-    }
-  }
-  if ! defined(Package[$php_mysql]) {
-    package { $php_mysql:
-      ensure  => present,
-      require => Class['apache::mod::php'],
-    }
-  }
-
   ## Set up DB using puppetlabs-mysql defined type
   if $create_db {
     database { $db_name:
