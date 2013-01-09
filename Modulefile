@@ -1,5 +1,5 @@
 name    'puppet-wordpress'
-version '0.2.3'
+version '0.3.0'
 source 'https://github.com/hunner/puppet-wordpress'
 author 'Hunter Haugen'
 license 'Apache2'
