@@ -8,8 +8,10 @@ class wordpress::app (
   $db_password,
   $wp_owner,
   $wp_group,
+  $wp_lang,
+  $wp_plugin_dir,
 ) {
-  validate_string($install_dir,$install_url,$version,$db_name,$db_host,$db_user,$db_password,$wp_owner,$wp_group)
+  validate_string($install_dir,$install_url,$version,$db_name,$db_host,$db_user,$db_password,$wp_owner,$wp_group, $wp_lang, $wp_plugin_dir)
 
   ## Resource defaults
   File {
