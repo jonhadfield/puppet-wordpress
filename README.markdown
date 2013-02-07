@@ -53,6 +53,12 @@ Requires:
 * `wp_group`<br />
   Specifies the group of the wordpress files. Default: `0` (\*BSD/Darwin compatible GID)
 
+* `wp_lang`<br />
+  WordPress Localized Language. Default: ``
+
+* `wp_plugin_dir`<br />
+  WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
+
 ## Example Usage
 
 Default deployment (insecure; default passwords and installed as root):

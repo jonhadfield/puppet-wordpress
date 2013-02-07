@@ -41,6 +41,12 @@
 #   Specifies the group of the wordpress files. Default: 0 (*BSD/Darwin
 #   compatible GID)
 #
+# [*wp_lang*]
+#   WordPress Localized Language. Default: ''
+#
+#
+# [*wp_plugin_dir*]
+#   WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
 # === Requires
 #
 # === Examples
@@ -57,17 +63,21 @@ class wordpress (
   $db_password    = 'password',
   $wp_owner       = 'root',
   $wp_group       = '0',
+  $wp_lang        = '',
+  $wp_plugin_dir  = 'DEFAULT'
 ) {
   class { 'wordpress::app':
-    install_dir => $install_dir,
-    install_url => $install_url,
-    version     => $version,
-    db_name     => $db_name,
-    db_host     => $db_host,
-    db_user     => $db_user,
-    db_password => $db_password,
-    wp_owner    => $wp_owner,
-    wp_group    => $wp_group,
+    install_dir   => $install_dir,
+    install_url   => $install_url,
+    version       => $version,
+    db_name       => $db_name,
+    db_host       => $db_host,
+    db_user       => $db_user,
+    db_password   => $db_password,
+    wp_owner      => $wp_owner,
+    wp_group      => $wp_group,
+    wp_lang       => $wp_lang,
+    wp_plugin_dir => $wp_plugin_dir,
   }
   -> class { 'wordpress::db':
     create_db      => $create_db,
