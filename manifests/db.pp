@@ -1,3 +1,4 @@
+# Install mysql server and set up wordpress database
 class wordpress::db {
 
   $mysqlserver = $::operatingsystem ? {

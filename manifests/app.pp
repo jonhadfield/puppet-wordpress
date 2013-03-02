@@ -1,3 +1,4 @@
+# Install wordpress application and its dependencies
 class wordpress::app {
 
   $wordpress_archive = 'wordpress-3.5.1.zip'

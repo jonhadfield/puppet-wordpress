@@ -12,6 +12,7 @@
 #
 # [Remember: No empty lines between comments and class definition]
 import '*.pp'
+# Install and configure wordpress and its dependencies
 class wordpress(
                 $wordpress_db_name='wordpress',
                 $wordpress_db_user='wordpress',
