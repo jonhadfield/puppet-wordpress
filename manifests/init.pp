@@ -66,7 +66,8 @@ class wordpress (
   $wp_lang        = '',
   $wp_plugin_dir  = 'DEFAULT'
 ) {
-  class { 'wordpress::app':
+  anchor { 'wordpress::begin': }
+  -> class { 'wordpress::app':
     install_dir   => $install_dir,
     install_url   => $install_url,
     version       => $version,
@@ -87,4 +88,6 @@ class wordpress (
     db_user        => $db_user,
     db_password    => $db_password,
   }
+  -> anchor { 'wordpress::end': }
 }
+

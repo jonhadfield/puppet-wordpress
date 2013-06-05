@@ -28,9 +28,11 @@ class wordpress::app (
   }
 
   ## Installation directory
-  file { $install_dir:
-    ensure  => directory,
-    recurse => true,
+  if ! defined(File[$install_dir]) {
+    file { $install_dir:
+      ensure  => directory,
+      recurse => true,
+    }
   }
 
   ## Download and extract
