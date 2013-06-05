@@ -33,6 +33,8 @@ class wordpress::app (
       ensure  => directory,
       recurse => true,
     }
+  } else {
+    notice("Warning: cannot manage the permissions of ${install_dir}, as another resource (perhaps apache::vhost?) is managing it.")
   }
 
   ## Download and extract
