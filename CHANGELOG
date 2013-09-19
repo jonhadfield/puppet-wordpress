@@ -1,3 +1,7 @@
+2013-09-19 Release 0.4.2
+Bugfixes:
+- Correct Modulefile module name
+
 2013-09-19 Release 0.4.1
 Bugfixes:
 - Escape \'s in the salt
