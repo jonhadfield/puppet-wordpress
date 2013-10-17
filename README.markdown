@@ -59,6 +59,21 @@ Requires:
 * `wp_plugin_dir`<br />
   WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
 
+* `wp_proxy`<br />
+  Use a proxy with Wordpress for updates, plugins etc.  Default: false
+
+* `wp_proxy_host`<br />
+  Hostname or IP of the proxy server to use. Default: ''
+
+* `wp_proxy_port`<br />
+  Port to use with the proxy.  Default: ''
+
+* `wp_multisite`<br />
+  Boolean.  Use multisite with wordpress?  If set, this requires wp_site_domain.  Default: false
+
+* `wp_site_domain`<br />
+  DOMAIN_CURRENT_SITE that will be used when configuring multisite.  Typically this is just your base blog.  Default: ''
+
 ## Example Usage
 
 Default deployment (insecure; default passwords and installed as root):

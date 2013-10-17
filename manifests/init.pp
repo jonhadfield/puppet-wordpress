@@ -47,6 +47,22 @@
 #
 # [*wp_plugin_dir*]
 #   WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
+#
+# [*wp_proxy*]
+#   Use a proxy with Wordpress for updates, plugins etc.  Default: false
+#
+# [*wp_proxy_host*]
+#   Hostname or IP of the proxy server to use. Default: ''
+#
+# [*wp_proxy_port*]
+#   Port to use with the proxy.  Default: ''
+#
+# [*wp_multisite*]
+#   Boolean.  Use multisite with wordpress?  If set, this requires wp_site_domain.  Default: false
+#
+# [*wp_site_domain*]
+#   DOMAIN_CURRENT_SITE that will be used when configuring multisite.  Typically this is just your base blog.  Default: ''
+#
 # === Requires
 #
 # === Examples
@@ -64,21 +80,31 @@ class wordpress (
   $wp_owner       = 'root',
   $wp_group       = '0',
   $wp_lang        = '',
-  $wp_plugin_dir  = 'DEFAULT'
+  $wp_plugin_dir  = 'DEFAULT',
+  $wp_proxy       = false,
+  $wp_proxy_host  = '',
+  $wp_proxy_port  = '',
+  $wp_multisite   = false,
+  $wp_site_domain = '',
 ) {
   anchor { 'wordpress::begin': }
   -> class { 'wordpress::app':
-    install_dir   => $install_dir,
-    install_url   => $install_url,
-    version       => $version,
-    db_name       => $db_name,
-    db_host       => $db_host,
-    db_user       => $db_user,
-    db_password   => $db_password,
-    wp_owner      => $wp_owner,
-    wp_group      => $wp_group,
-    wp_lang       => $wp_lang,
-    wp_plugin_dir => $wp_plugin_dir,
+    install_dir    => $install_dir,
+    install_url    => $install_url,
+    version        => $version,
+    db_name        => $db_name,
+    db_host        => $db_host,
+    db_user        => $db_user,
+    db_password    => $db_password,
+    wp_owner       => $wp_owner,
+    wp_group       => $wp_group,
+    wp_lang        => $wp_lang,
+    wp_plugin_dir  => $wp_plugin_dir,
+    wp_proxy       => $wp_proxy,
+    wp_proxy_host  => $wp_proxy_host,
+    wp_proxy_port  => $wp_proxy_port,
+    wp_multisite   => $wp_multisite,
+    wp_site_domain => $wp_site_domain,
   }
   -> class { 'wordpress::db':
     create_db      => $create_db,
