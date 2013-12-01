@@ -7,7 +7,6 @@ __Wordpress version: 3.7.1__
 __Additional software__
 
 _Themes_
-* Graphene 1.9.2
 * Suffusion 4.4.7
 
 _Plugins_
