@@ -2,16 +2,16 @@ This will set up an installation of wordpress on Debian and Redhat style distrib
 
 Installation includes software and configuration for mysql, apache httpd and php module.
 
-__Wordpress version: 3.5.1__
+__Wordpress version: 3.7.1__
 
 __Additional software__
 
 _Themes_
-* Graphene 1.8.3
-* Suffusion 4.4.6
+* Graphene 1.9.2
+* Suffusion 4.4.7
 
 _Plugins_
-* Wordpress importer 0.6
+* Wordpress importer 0.6.1
 
 __Usage__
 
