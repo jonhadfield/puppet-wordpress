@@ -8,6 +8,6 @@ description 'Installs wordpress and required mysql db/user.'
 project_page 'https://github.com/hunner/puppet-wordpress'
 
 ## Add dependencies, if any:
-dependency 'ripienaar/concat', '>= 0.2.0'
+dependency 'puppetlabs/concat', '>= 1.0.0'
 dependency 'puppetlabs/mysql', '>= 0.5.0'
 dependency 'puppetlabs/stdlib', '>= 2.3.1'
