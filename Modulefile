@@ -9,5 +9,5 @@ project_page 'https://github.com/hunner/puppet-wordpress'
 
 ## Add dependencies, if any:
 dependency 'puppetlabs/concat', '>= 1.0.0'
-dependency 'puppetlabs/mysql', '>= 0.5.0'
+dependency 'puppetlabs/mysql', '>= 2.1.0'
 dependency 'puppetlabs/stdlib', '>= 2.3.1'
