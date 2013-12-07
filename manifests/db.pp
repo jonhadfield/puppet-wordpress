@@ -11,17 +11,17 @@ class wordpress::db (
 
   ## Set up DB using puppetlabs-mysql defined type
   if $create_db {
-    database { $db_name:
+    mysql_database { $db_name:
       charset => 'utf8',
       require => Class['wordpress::app'],
     }
   }
   if $create_db_user {
-    database_user { "${db_user}@${db_host}":
+    mysql_user { "${db_user}@${db_host}":
       password_hash => mysql_password($db_password),
       require       => Class['wordpress::app'],
     }
-    database_grant { "${db_user}@${db_host}/${db_name}":
+    mysql_grant { "${db_user}@${db_host}/${db_name}":
       privileges => ['all'],
       require    => Class['wordpress::app'],
     }
