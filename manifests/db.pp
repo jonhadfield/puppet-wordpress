@@ -21,7 +21,9 @@ class wordpress::db (
       password_hash => mysql_password($db_password),
       require       => Class['wordpress::app'],
     }
-    mysql_grant { "${db_user}@${db_host}/${db_name}":
+    mysql_grant { "${db_user}@${db_host}/${db_name}.*":
+      table      => "${db_name}.*",
+      user       => "${db_user}@${db_host}",
       privileges => ['all'],
       require    => Class['wordpress::app'],
     }

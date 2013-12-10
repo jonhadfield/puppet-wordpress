@@ -47,6 +47,10 @@ class wordpress::app (
     command => "tar zxvf ./wordpress-${version}.tar.gz --strip-components=1",
     creates => "${install_dir}/index.php",
   }
+  ~> exec { 'Change ownership':
+    command     => "chown -R ${wp_owner}:${wp_group} ${install_dir}",
+    refreshonly => true,
+  }
 
   ## Configure wordpress
   #
