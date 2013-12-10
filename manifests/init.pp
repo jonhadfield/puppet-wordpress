@@ -48,20 +48,17 @@
 # [*wp_plugin_dir*]
 #   WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
 #
-# [*wp_proxy*]
-#   Use a proxy with Wordpress for updates, plugins etc.  Default: false
-#
 # [*wp_proxy_host*]
-#   Hostname or IP of the proxy server to use. Default: ''
+#   Specifies a Hostname or IP of a proxy server for Wordpress to use to install updates, plugins, etc. Default: ''
 #
 # [*wp_proxy_port*]
-#   Port to use with the proxy.  Default: ''
+#   Specifies the port to use with the proxy host.  Default: ''
 #
 # [*wp_multisite*]
-#   Boolean.  Use multisite with wordpress?  If set, this requires wp_site_domain.  Default: false
+#   Specifies whether to enable the multisite feature. Requires `wp_site_domain` to also be passed. Default: `false`
 #
 # [*wp_site_domain*]
-#   DOMAIN_CURRENT_SITE that will be used when configuring multisite.  Typically this is just your base blog.  Default: ''
+#   Specifies the `DOMAIN_CURRENT_SITE` value that will be used when configuring multisite. Typically this is the address of the main wordpress instance.  Default: ''
 #
 # === Requires
 #
@@ -81,7 +78,6 @@ class wordpress (
   $wp_group       = '0',
   $wp_lang        = '',
   $wp_plugin_dir  = 'DEFAULT',
-  $wp_proxy       = false,
   $wp_proxy_host  = '',
   $wp_proxy_port  = '',
   $wp_multisite   = false,
@@ -100,7 +96,6 @@ class wordpress (
     wp_group       => $wp_group,
     wp_lang        => $wp_lang,
     wp_plugin_dir  => $wp_plugin_dir,
-    wp_proxy       => $wp_proxy,
     wp_proxy_host  => $wp_proxy_host,
     wp_proxy_port  => $wp_proxy_port,
     wp_multisite   => $wp_multisite,
