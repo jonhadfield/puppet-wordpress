@@ -47,6 +47,19 @@
 #
 # [*wp_plugin_dir*]
 #   WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
+#
+# [*wp_proxy_host*]
+#   Specifies a Hostname or IP of a proxy server for Wordpress to use to install updates, plugins, etc. Default: ''
+#
+# [*wp_proxy_port*]
+#   Specifies the port to use with the proxy host.  Default: ''
+#
+# [*wp_multisite*]
+#   Specifies whether to enable the multisite feature. Requires `wp_site_domain` to also be passed. Default: `false`
+#
+# [*wp_site_domain*]
+#   Specifies the `DOMAIN_CURRENT_SITE` value that will be used when configuring multisite. Typically this is the address of the main wordpress instance.  Default: ''
+#
 # === Requires
 #
 # === Examples
@@ -64,21 +77,29 @@ class wordpress (
   $wp_owner       = 'root',
   $wp_group       = '0',
   $wp_lang        = '',
-  $wp_plugin_dir  = 'DEFAULT'
+  $wp_plugin_dir  = 'DEFAULT',
+  $wp_proxy_host  = '',
+  $wp_proxy_port  = '',
+  $wp_multisite   = false,
+  $wp_site_domain = '',
 ) {
   anchor { 'wordpress::begin': }
   -> class { 'wordpress::app':
-    install_dir   => $install_dir,
-    install_url   => $install_url,
-    version       => $version,
-    db_name       => $db_name,
-    db_host       => $db_host,
-    db_user       => $db_user,
-    db_password   => $db_password,
-    wp_owner      => $wp_owner,
-    wp_group      => $wp_group,
-    wp_lang       => $wp_lang,
-    wp_plugin_dir => $wp_plugin_dir,
+    install_dir    => $install_dir,
+    install_url    => $install_url,
+    version        => $version,
+    db_name        => $db_name,
+    db_host        => $db_host,
+    db_user        => $db_user,
+    db_password    => $db_password,
+    wp_owner       => $wp_owner,
+    wp_group       => $wp_group,
+    wp_lang        => $wp_lang,
+    wp_plugin_dir  => $wp_plugin_dir,
+    wp_proxy_host  => $wp_proxy_host,
+    wp_proxy_port  => $wp_proxy_port,
+    wp_multisite   => $wp_multisite,
+    wp_site_domain => $wp_site_domain,
   }
   -> class { 'wordpress::db':
     create_db      => $create_db,
