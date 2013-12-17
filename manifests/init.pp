@@ -13,7 +13,7 @@
 #   Default: http://wordpress.org
 #
 # [*version*]
-#   Specifies the version of wordpress to install. Default: 3.5
+#   Specifies the version of wordpress to install. Default: 3.8
 #
 # [*create_db*]
 #   Specifies whether to create the db or not. Default: true
@@ -67,7 +67,7 @@
 class wordpress (
   $install_dir    = '/opt/wordpress',
   $install_url    = 'http://wordpress.org',
-  $version        = '3.5',
+  $version        = '3.8',
   $create_db      = true,
   $create_db_user = true,
   $db_name        = 'wordpress',
