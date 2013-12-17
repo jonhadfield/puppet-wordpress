@@ -2,7 +2,7 @@
 
 ## Overview
 
-This will set up an installation of Wordpress 3.5 on Debian and Redhat style distributions.
+This will set up an installation of Wordpress 3.8 on Debian and Redhat style distributions.
 
 ## Capabilities
 
@@ -27,7 +27,7 @@ Requires:
   Specifies the url from which the wordpress tarball should be downloaded.  Default: `http://wordpress.org`
 
 * `version`<br />
-  Specifies the version of wordpress to install. Default: `3.5`
+  Specifies the version of wordpress to install. Default: `3.8`
 
 * `create_db`<br />
   Specifies whether to create the db or not. Default: `true`
