@@ -1,3 +1,21 @@
+2013-12-17 Release 0.5.1
+Features:
+- Update default version of wordpress to install to 3.8
+- Add `wordpress::wp_proxy_host` and `wordpress::wp_proxy_port` for proxying
+plugin installation.
+- Add `wordpress::wp_mulitsite` and `wordpress::wp_multisite` to enable
+multisite support
+- Update to work with latest 2.x puppetlabs-mysql
+- Update to work with latest 1.x puppetlabs-concat
+- Add rspec-system integration testing, travis testing, and autopublish
+
+Bugfixes:
+- Fix ownership during installation to reduce log output and increase
+idempotency.
+
+2013-12-17 Release 0.5.0
+This release is invalid and was removed.
+
 2013-09-19 Release 0.4.2
 Bugfixes:
 - Correct Modulefile module name
