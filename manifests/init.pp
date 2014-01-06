@@ -48,6 +48,12 @@
 # [*wp_plugin_dir*]
 #   WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
 #
+# [*wp_additional_config*]
+#   Specifies a template to include near the end of the wp-config.php file to add additional options. Default: ''
+#
+# [*wp_table_prefix*]
+#   Specifies the database table prefix. Default: wp_
+#
 # [*wp_proxy_host*]
 #   Specifies a Hostname or IP of a proxy server for Wordpress to use to install updates, plugins, etc. Default: ''
 #
@@ -65,41 +71,45 @@
 # === Examples
 #
 class wordpress (
-  $install_dir    = '/opt/wordpress',
-  $install_url    = 'http://wordpress.org',
-  $version        = '3.8',
-  $create_db      = true,
-  $create_db_user = true,
-  $db_name        = 'wordpress',
-  $db_host        = 'localhost',
-  $db_user        = 'wordpress',
-  $db_password    = 'password',
-  $wp_owner       = 'root',
-  $wp_group       = '0',
-  $wp_lang        = '',
-  $wp_plugin_dir  = 'DEFAULT',
-  $wp_proxy_host  = '',
-  $wp_proxy_port  = '',
-  $wp_multisite   = false,
-  $wp_site_domain = '',
+  $install_dir          = '/opt/wordpress',
+  $install_url          = 'http://wordpress.org',
+  $version              = '3.8',
+  $create_db            = true,
+  $create_db_user       = true,
+  $db_name              = 'wordpress',
+  $db_host              = 'localhost',
+  $db_user              = 'wordpress',
+  $db_password          = 'password',
+  $wp_owner             = 'root',
+  $wp_group             = '0',
+  $wp_lang              = '',
+  $wp_plugin_dir        = 'DEFAULT',
+  $wp_additional_config = 'DEFAULT',
+  $wp_table_prefix      = 'wp_',
+  $wp_proxy_host        = '',
+  $wp_proxy_port        = '',
+  $wp_multisite         = false,
+  $wp_site_domain       = '',
 ) {
   anchor { 'wordpress::begin': }
   -> class { 'wordpress::app':
-    install_dir    => $install_dir,
-    install_url    => $install_url,
-    version        => $version,
-    db_name        => $db_name,
-    db_host        => $db_host,
-    db_user        => $db_user,
-    db_password    => $db_password,
-    wp_owner       => $wp_owner,
-    wp_group       => $wp_group,
-    wp_lang        => $wp_lang,
-    wp_plugin_dir  => $wp_plugin_dir,
-    wp_proxy_host  => $wp_proxy_host,
-    wp_proxy_port  => $wp_proxy_port,
-    wp_multisite   => $wp_multisite,
-    wp_site_domain => $wp_site_domain,
+    install_dir          => $install_dir,
+    install_url          => $install_url,
+    version              => $version,
+    db_name              => $db_name,
+    db_host              => $db_host,
+    db_user              => $db_user,
+    db_password          => $db_password,
+    wp_owner             => $wp_owner,
+    wp_group             => $wp_group,
+    wp_lang              => $wp_lang,
+    wp_plugin_dir        => $wp_plugin_dir,
+    wp_additional_config => $wp_additional_config,
+    wp_table_prefix      => $wp_table_prefix,
+    wp_proxy_host        => $wp_proxy_host,
+    wp_proxy_port        => $wp_proxy_port,
+    wp_multisite         => $wp_multisite,
+    wp_site_domain       => $wp_site_domain,
   }
   -> class { 'wordpress::db':
     create_db      => $create_db,
