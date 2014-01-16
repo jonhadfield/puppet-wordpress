@@ -1,3 +1,12 @@
+2014-01-16 Release 0.6.0
+Features:
+- Add `wordpress::wp_additional_config` parameter for custom template
+fragments.
+- Add `wordpress::wp_table_prefix` to customize the table prefix in mysql.
+
+Bugfixes:
+- Fix idempotency for `mysql_grant` privileges.
+
 2013-12-17 Release 0.5.1
 Features:
 - Update default version of wordpress to install to 3.8
