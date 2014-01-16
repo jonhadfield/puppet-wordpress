@@ -59,6 +59,12 @@ Requires:
 * `wp_plugin_dir`<br />
   WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
 
+* `wp_additional_config`<br />
+  Specifies a template to include near the end of the wp-config.php file to add additional options. Default: ''
+
+* `wp_table_prefix`<br />
+  Specifies the database table prefix. Default: wp_
+
 * `wp_proxy_host`<br />
   Specifies a Hostname or IP of a proxy server for Wordpress to use to install updates, plugins, etc. Default: ''
 
@@ -150,5 +156,13 @@ Enable the multisite wordpress feature:
 class { 'wordpress':
   wp_multisite   => true,
   wp_site_domain => 'blog.domain.com',
+}
+```
+
+Add custom configuration to wp-config.php:
+
+```puppet
+class { 'wordpress':
+  wp_additional_config => 'foo/wp-config-extra.php.erb',
 }
 ```

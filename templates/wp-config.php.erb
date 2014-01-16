@@ -38,7 +38,7 @@ define('DB_COLLATE', '');
  * You can have multiple installations in one database if you give each a unique
  * prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix  = 'wp_';
+$table_prefix  = '<%= @wp_table_prefix %>';
 
 /**
  * WordPress Localized Language, defaults to English.
@@ -83,6 +83,9 @@ define('SITE_ID_CURRENT_SITE', 1);
 define('BLOG_ID_CURRENT_SITE', 1);
 <% end %>
 
+<% if @wp_additional_config != 'DEFAULT' -%>
+<%= scope.function_template([@wp_additional_config]) %>
+<% end -%>
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
