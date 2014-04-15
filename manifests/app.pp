@@ -48,15 +48,23 @@ class wordpress::app (
   } else {
     notice("Warning: cannot manage the permissions of ${install_dir}, as another resource (perhaps apache::vhost?) is managing it.")
   }
+  
+  ## tar.gz. file name lang-aware
+  if $wp_lang {
+    $install_file_name = wordpress-${version}-${wp_lang}.tar.gz
+  } else {
+    $install_file_name = wordpress-${version}.tar.gz
+  }
+  
 
   ## Download and extract
   exec { 'Download wordpress':
-    command => "wget ${install_url}/wordpress-${version}-${wp_lang}.tar.gz",
-    creates => "${install_dir}/wordpress-${version}-${wp_lang}.tar.gz",
+    command => "wget ${install_url}/${install_file_name}",
+    creates => "${install_dir}/${install_file_name}",
     require => File[$install_dir],
   }
   -> exec { 'Extract wordpress':
-    command => "tar zxvf ./wordpress-${version}-${wp_lang}.tar.gz --strip-components=1",
+    command => "tar zxvf ./${install_file_name} --strip-components=1",
     creates => "${install_dir}/index.php",
   }
   ~> exec { 'Change ownership':
