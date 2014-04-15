@@ -51,12 +51,12 @@ class wordpress::app (
 
   ## Download and extract
   exec { 'Download wordpress':
-    command => "wget ${install_url}/wordpress-${version}.tar.gz",
-    creates => "${install_dir}/wordpress-${version}.tar.gz",
+    command => "wget ${install_url}/wordpress-${version}-${wp_lang}.tar.gz",
+    creates => "${install_dir}/wordpress-${version}-${wp_lang}.tar.gz",
     require => File[$install_dir],
   }
   -> exec { 'Extract wordpress':
-    command => "tar zxvf ./wordpress-${version}.tar.gz --strip-components=1",
+    command => "tar zxvf ./wordpress-${version}-${wp_lang}.tar.gz --strip-components=1",
     creates => "${install_dir}/index.php",
   }
   ~> exec { 'Change ownership':
