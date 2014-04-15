@@ -51,11 +51,10 @@ class wordpress::app (
   
   ## tar.gz. file name lang-aware
   if $wp_lang {
-    $install_file_name = wordpress-${version}-${wp_lang}.tar.gz
+    $install_file_name = "wordpress-${version}-${wp_lang}.tar.gz"
   } else {
-    $install_file_name = wordpress-${version}.tar.gz
+    $install_file_name = "wordpress-${version}.tar.gz"
   }
-  
 
   ## Download and extract
   exec { 'Download wordpress':
