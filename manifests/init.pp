@@ -66,6 +66,15 @@
 # [*wp_site_domain*]
 #   Specifies the `DOMAIN_CURRENT_SITE` value that will be used when configuring multisite. Typically this is the address of the main wordpress instance.  Default: ''
 #
+# [*wp_debug*]
+#   Specifies the `WP_DEBUG` value that will control debugging. This must be true if you use the next two debug extensions. Default: 'false'
+#
+# [*wp_debug_log*]
+#   Specifies the `WP_DEBUG_LOG` value that extends debugging to cause all errors to also be saved to a debug.log logfile insdie the /wp-content/ directory. Default: 'false'
+#
+# [*wp_debug_display*]
+#   Specifies the `WP_DEBUG_DISPLAY` value that extends debugging to cause debug messages to be shown inline, in HTML pages. Default: 'false'
+#
 # === Requires
 #
 # === Examples
@@ -90,6 +99,9 @@ class wordpress (
   $wp_proxy_port        = '',
   $wp_multisite         = false,
   $wp_site_domain       = '',
+  $wp_debug             = false,
+  $wp_debug_log         = false,
+  $wp_debug_display     = false
 ) {
   anchor { 'wordpress::begin': }
   -> class { 'wordpress::app':
@@ -110,6 +122,9 @@ class wordpress (
     wp_proxy_port        => $wp_proxy_port,
     wp_multisite         => $wp_multisite,
     wp_site_domain       => $wp_site_domain,
+    wp_debug             => $wp_debug,
+    wp_debug_log         => $wp_debug_log,
+    wp_debug_display     => $wp_debug_display
   }
   -> class { 'wordpress::db':
     create_db      => $create_db,

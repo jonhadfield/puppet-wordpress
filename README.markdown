@@ -77,6 +77,15 @@ Requires:
 * `wp_site_domain`<br />
   Specifies the `DOMAIN_CURRENT_SITE` value that will be used when configuring multisite. Typically this is the address of the main wordpress instance.  Default: ''
 
+* `wp_debug`<br />
+  Specifies the `WP_DEBUG` value that will control debugging. This must be true if you use the next two debug extensions. Default: 'false'
+
+* `wp_debug_log`<br />
+  Specifies the `WP_DEBUG_LOG` value that extends debugging to cause all errors to also be saved to a debug.log logfile insdie the /wp-content/ directory. Default: 'false'
+
+* `wp_debug_display`<br />
+  Specifies the `WP_DEBUG_DISPLAY` value that extends debugging to cause debug messages to be shown inline, in HTML pages. Default: 'false'
+
 ## Example Usage
 
 Default deployment (insecure; default passwords and installed as root):
