@@ -35,7 +35,9 @@
 #   Specifies the database user's password in plaintext. Default: password
 #
 # [*wp_owner*]
-#   Specifies the owner of the wordpress files. Default: root
+#   Specifies the owner of the wordpress files. You must ensure this user 
+#   exists as this module does not attempt to create it if missing.  Default: 
+#   root
 #
 # [*wp_group*]
 #   Specifies the group of the wordpress files. Default: 0 (*BSD/Darwin
