@@ -25,7 +25,7 @@ class wordpress::app (
   validate_bool($wp_multisite, $wp_debug, $wp_debug_log, $wp_debug_display)
   validate_absolute_path($install_dir)
 
-  if $wp_config_content and ($wp_table_prefix or $wp_lang or $wp_debug or $wp_debug_log or $wp_debug_display or $wp_plugin_dir or $wp_proxy_host or $wp_proxy_port or $wp_multisite or $wp_site_domain or $wp_additional_config) {
+  if $wp_config_content and ($wp_lang or $wp_debug or $wp_debug_log or $wp_debug_display or $wp_proxy_host or $wp_proxy_port or $wp_multisite or $wp_site_domain) {
     warning('When $wp_config_content is set, the following parameters are ignored: $wp_table_prefix, $wp_lang, $wp_debug, $wp_debug_log, $wp_debug_display, $wp_plugin_dir, $wp_proxy_host, $wp_proxy_port, $wp_multisite, $wp_site_domain, $wp_additional_config')
   }
 
