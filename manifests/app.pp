@@ -35,8 +35,6 @@ class wordpress::app (
     path      => ['/bin','/sbin','/usr/bin','/usr/sbin'],
     cwd       => $install_dir,
     logoutput => 'on_failure',
-    user      => $wp_owner,
-    group     => $wp_group,
   }
 
   ## Installation directory
@@ -54,14 +52,20 @@ class wordpress::app (
     command => "wget ${install_url}/wordpress-${version}.tar.gz",
     creates => "${install_dir}/wordpress-${version}.tar.gz",
     require => File[$install_dir],
+    user    => $wp_owner,
+    group   => $wp_group,
   }
   -> exec { 'Extract wordpress':
     command => "tar zxvf ./wordpress-${version}.tar.gz --strip-components=1",
     creates => "${install_dir}/index.php",
+    user    => $wp_owner,
+    group   => $wp_group,
   }
   ~> exec { 'Change ownership':
     command     => "chown -R ${wp_owner}:${wp_group} ${install_dir}",
     refreshonly => true,
+    user        => $wp_owner,
+    group       => $wp_group,
   }
 
   ## Configure wordpress
