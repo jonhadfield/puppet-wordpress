@@ -63,6 +63,9 @@ Requires:
 * `wp_additional_config`<br />
   Specifies a template to include near the end of the wp-config.php file to add additional options. Default: ''
 
+* `wp_config_content`<br />
+  Specifies the entire content for wp-config.php. This causes many of the other parameters to be ignored and allows an entirely custom config to be passed. It is recommended to use `wp_additional_config` instead of this parameter when possible.
+
 * `wp_table_prefix`<br />
   Specifies the database table prefix. Default: wp_
 
