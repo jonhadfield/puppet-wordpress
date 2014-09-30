@@ -17,6 +17,7 @@ Requires:
 - Configuration of php-enabled webserver
 - Configuration MySQL server
 - PHP 5.3 or greater
+- User specified by `wp_owner` must exist
 
 ## Parameters
 
@@ -48,7 +49,7 @@ Requires:
   Specifies the database user's password in plaintext. Default: `password`
 
 * `wp_owner`<br />
-  Specifies the owner of the wordpress files. Default: `root`
+  Specifies the owner of the wordpress files.  You must ensure this user exists as this module does not attempt to create it if missing. Default: `root`
 
 * `wp_group`<br />
   Specifies the group of the wordpress files. Default: `0` (\*BSD/Darwin compatible GID)
@@ -85,7 +86,7 @@ Default deployment (insecure; default passwords and installed as root):
 class { 'wordpress': }
 ```
 
-Basic deployment (secure database password, installed as `wordpress` user/group):
+Basic deployment (secure database password, installed as `wordpress` user/group.  NOTE: in this example you must ensure the `wordpress` user already exists):
 
 ```puppet
 class { 'wordpress':
