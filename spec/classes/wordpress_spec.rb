@@ -9,8 +9,8 @@ describe 'wordpress', :type => :class do
         :concat_basedir    => '/dne',
       }
     end
-    it { should contain_class("wordpress::app") }
-    it { should contain_class("wordpress::db") }
+    it { should contain_wordpress__instance__app("/opt/wordpress") }
+    it { should contain_wordpress__instance__db("localhost/wordpress") }
   end
   context "on a RedHat 6 OS" do
     let :facts do
@@ -20,8 +20,8 @@ describe 'wordpress', :type => :class do
         :concat_basedir    => '/dne',
       }
     end
-    it { should contain_class("wordpress::app") }
-    it { should contain_class("wordpress::db") }
+    it { should contain_wordpress__instance__app("/opt/wordpress") }
+    it { should contain_wordpress__instance__db("localhost/wordpress") }
   end
   context "on a Debian OS" do
     let :facts do
@@ -30,7 +30,7 @@ describe 'wordpress', :type => :class do
         :concat_basedir => '/dne',
       }
     end
-    it { should contain_class("wordpress::app") }
-    it { should contain_class("wordpress::db") }
+    it { should contain_wordpress__instance__app("/opt/wordpress") }
+    it { should contain_wordpress__instance__db("localhost/wordpress") }
   end
 end
