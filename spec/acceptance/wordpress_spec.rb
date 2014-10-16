@@ -3,7 +3,9 @@ require 'spec_helper_acceptance'
 describe "setting up a wordpress instance" do
   it 'deploys a wordpress instance' do
     pp = %{
-      class { 'apache': }
+      class { 'apache':
+        mpm_module => 'prefork',
+      }
       class { 'apache::mod::php': }
       class { 'mysql::server': }
       class { 'mysql::bindings': php_enable => true, }
@@ -28,7 +30,9 @@ describe "setting up a wordpress instance" do
 
   it 'deploys two wordpress instances' do
     pp = %{
-      class { 'apache': }
+      class { 'apache':
+        mpm_module => 'prefork',
+      }
       class { 'apache::mod::php': }
       class { 'mysql::server': }
       class { 'mysql::bindings': php_enable => true, }
@@ -65,7 +69,9 @@ describe "setting up a wordpress instance" do
 
   it 'deploys a wordpress instance as the httpd user with a secure DB password and a specific location' do
     pp = %{
-      class { 'apache': }
+      class { 'apache':
+        mpm_module => 'prefork',
+      }
       class { 'apache::mod::php': }
       class { 'mysql::server': }
       class { 'mysql::bindings::php': }
