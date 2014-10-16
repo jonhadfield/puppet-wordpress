@@ -64,7 +64,7 @@ describe "setting up a wordpress instance" do
     expect(apply_manifest(pp, :catch_changes  => true).stderr).to eq("")
 
     expect(shell("/usr/bin/curl wordpress1.localdomain:80/blog/wp-admin/install.php").stdout).to match(/Install WordPress/)
-    expect(shell("/usr/bin/curl wordpress1.localdomain:80/blog/wp-admin/install.php").stdout).to match(/Install WordPress/)
+    expect(shell("/usr/bin/curl wordpress2.localdomain:80/blog/wp-admin/install.php").stdout).to match(/Install WordPress/)
   end
 
   it 'deploys a wordpress instance as the httpd user with a secure DB password and a specific location' do
